@@ -20,9 +20,13 @@ python time_duration.py 8:30 10:22
 ##### Add option to have cli tool run from start to end and output time at end
 
 Example:
-python time_duration.py *start
+
+python time_duration.py *startk
+
 ...
+
 python time_duration.py *end
+
 
 Output: Duratiom between start and end times
 
