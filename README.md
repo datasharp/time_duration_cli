@@ -1,33 +1,20 @@
 # Time Duration Calculator CLI Tool
 
-## Next Steps:
+A command-line tool for calculating the duration between two times.
 
-##### Add AM and PM functionality
+## Features
 
-Example:
+- **AM/PM Functionality**: Supports time input in both 12-hour formats with AM/PM.
+
+## Upcoming Features
+
+- **Case-Insensitive AM/PM Input**: Will accept both uppercase and lowercase for AM/PM (e.g., `8:30 am` or `8:30 AM`).
+- **Default to PM**: If AM/PM is not specified, the tool will assume PM by default.
+- **Start/End Time Capture**: Will provide an option to start a timer and later capture the end time, calculating the duration between them.
+
+## Example Usages
+
+### Basic Usage with AM/PM
+
+```bash
 python time_duration.py 8:30 AM 10:22 PM
-
-##### Make AM and PM not case sensitive
-
-Example:
-python time_duration.py 8:30 am 10:22 pm
-
-##### Default to PM when time is not specifically stated
-
-Example:
-python time_duration.py 8:30 10:22
-
-##### Add option to have CLI tool run from start to end and output time at end
-
-Example:
-
-python time_duration.py *start
-
-...
-
-python time_duration.py *end
-
-
-Output: Duration between start and end times
-
-
