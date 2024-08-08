@@ -2,29 +2,30 @@ import datetime as dt
 import argparse
 
 
-def calc_diff(time1, time2):
-    time1 = time1.split(':')
-    time1 = dt.datetime.combine(dt.date.today(), dt.time(hour=int(time1[0]),
-                                                         minute=int(time1[1])))
+def calc_diff(time1, period1, time2, period2):
+    time1 = dt.datetime.strptime(f"{time1} {period1}", "%I:%M %p")
+    time2 = dt.datetime.strptime(f"{time2} {period2}", "%I:%M %p")
 
-    time2 = time2.split(':')
-    time2 = dt.datetime.combine(dt.date.today(), dt.time(hour=int(time2[0]),
-                                                         minute=int(time2[1])))
+    if time2 < time1:
+        time2 += dt.timedelta(days=1)
 
-    time_diff = time2 - time1
-    return time_diff
+    return time2 - time1
 
 
 def main():
     parser = argparse.ArgumentParser(description='Add two times to see the \
                                      duration.')
-    parser.add_argument('time1', help='first time for the duration \
-                        calculation (HH:MM)')
-    parser.add_argument('time2', help='second time for the duration\
-                        calculation (HH:MM)')
+    parser.add_argument('time1',
+                        help='First time (HH:MM)')
+    parser.add_argument('period1',
+                        help='AM/PM for the first time')
+    parser.add_argument('time2',
+                        help='Second time (HH:MM)')
+    parser.add_argument('period2',
+                        help='AM/PM for the second time')
     args = parser.parse_args()
 
-    time_diff = calc_diff(args.time1, args.time2)
+    time_diff = calc_diff(args.time1, args.period1, args.time2, args.period2)
 
     print(f"Time difference: {time_diff}")
 
