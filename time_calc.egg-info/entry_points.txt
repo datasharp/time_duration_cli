@@ -1,0 +1,2 @@
+[console_scripts]
+tcalc = timediff.__main__:main

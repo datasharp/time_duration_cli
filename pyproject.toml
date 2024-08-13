@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "time_calc"
+description = "A tool to quickly calculate differences in times. "
+readme="README.md"
+version = "0.0.1"
+
+[project.scripts]
+tcalc = "timediff.__main__:main"
+
+[project.urls]
+"Homepage" = "https://github.com/datasharp/time_duration_cli"

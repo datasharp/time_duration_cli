@@ -1,0 +1,10 @@
+.gitignore
+README.md
+pyproject.toml
+tests/tests.py
+time_calc.egg-info/PKG-INFO
+time_calc.egg-info/SOURCES.txt
+time_calc.egg-info/dependency_links.txt
+time_calc.egg-info/entry_points.txt
+time_calc.egg-info/top_level.txt
+timediff/__main__.py
