@@ -1,4 +1,6 @@
 tempCodeRunnerFile.py
 scratch.ipynb
+*.egg-info/
+time_calc.egg-info/
 __pycache__
 env
