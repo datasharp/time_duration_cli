@@ -17,7 +17,6 @@ To install the Time Duration Calculator CLI Tool, follow these steps:
     ```bash
     cd time-duration-calculator
 
-
 3. **Install the Dependencies:**
  
     ```bash
