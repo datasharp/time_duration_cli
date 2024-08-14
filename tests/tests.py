@@ -1,5 +1,5 @@
 import unittest
-from time_duration import calc_diff
+from timediff.__main__ import main, calc_diff
 
 
 class TestCase(unittest.TestCase):

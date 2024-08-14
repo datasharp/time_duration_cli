@@ -3,8 +3,11 @@ import argparse
 
 
 def calc_diff(time1, period1, time2, period2):
-    time1 = dt.datetime.strptime(f"{time1} {period1}", "%I:%M %p")
-    time2 = dt.datetime.strptime(f"{time2} {period2}", "%I:%M %p")
+    try:
+        time1 = dt.datetime.strptime(f"{time1} {period1}", "%I:%M %p")
+        time2 = dt.datetime.strptime(f"{time2} {period2}", "%I:%M %p")
+    except argparse.ArgumentError as e:
+        print(f"An error occurred: {e}")
 
     if time2 < time1:
         time2 += dt.timedelta(days=1)
@@ -23,6 +26,7 @@ def main():
                         help='Second time (HH:MM)')
     parser.add_argument('period2',
                         help='AM/PM for the second time')
+
     args = parser.parse_args()
 
     time_diff = calc_diff(args.time1, args.period1, args.time2, args.period2)
