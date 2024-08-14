@@ -1,36 +1,80 @@
 import datetime as dt
 import argparse
+import sys
 
 
-def calc_diff(time1, period1, time2, period2):
+def calc_diff_pm(args):
     try:
-        time1 = dt.datetime.strptime(f"{time1} {period1}", "%I:%M %p")
-        time2 = dt.datetime.strptime(f"{time2} {period2}", "%I:%M %p")
-    except argparse.ArgumentError as e:
-        print(f"An error occurred: {e}")
+        print(f"time1={args.time1}, period1={args.period1}, time2={args.time2}, period2={args.period2}")
 
-    if time2 < time1:
-        time2 += dt.timedelta(days=1)
+        if args.pmdefault:
+            args.period1 = 'PM'
+            args.period2 = 'PM'
 
-    return time2 - time1
+        args.time1 = dt.datetime.strptime(f"{args.time1} {args.period1}",
+                                          "%I:%M %p")
+        args.time2 = dt.datetime.strptime(f"{args.time2} {args.period2}",
+                                          "%I:%M %p")
+
+    except ValueError:
+        print("ERROR: Invalid time format. Please use HH:MM format and AM/PM \
+              for periods.")
+        sys.exit(1)
+
+    if args.time2 < args.time1:
+        args.time2 += dt.timedelta(days=1)
+
+    return args.time2 - args.time1
+
+
+def calc_diff(args):
+    try:
+        print(f"time1={args.time1}, period1={args.period1}, time2={args.time2}, period2={args.period2}")
+
+        args.time1 = dt.datetime.strptime(f"{args.time1} {args.period1}",
+                                          "%I:%M %p")
+        args.time2 = dt.datetime.strptime(f"{args.time2} {args.period2}",
+                                          "%I:%M %p")
+
+    except ValueError:
+        print("ERROR: Invalid time format. Please use HH:MM format and AM/PM \
+              for periods.")
+        sys.exit(1)
+
+    if args.time2 < args.time1:
+        args.time2 += dt.timedelta(days=1)
+
+    return args.time2 - args.time1
 
 
 def main():
     parser = argparse.ArgumentParser(description='Add two times to see the \
                                      duration.')
-    parser.add_argument('time1',
-                        help='First time (HH:MM)')
-    parser.add_argument('period1',
-                        help='AM/PM for the first time')
-    parser.add_argument('time2',
-                        help='Second time (HH:MM)')
-    parser.add_argument('period2',
-                        help='AM/PM for the second time')
+
+    # Positional arguments
+    parser.add_argument('time1', help='First time (HH:MM)')
+    parser.add_argument('time2', help='Second time (HH:MM)')
+
+    # Optional periods
+    parser.add_argument('period1', nargs='?', help='AM/PM for the first time')
+    parser.add_argument('period2', nargs='?', help='AM/PM for the second time')
+
+    # PM default flag
+    parser.add_argument("-pmd", "--pmdefault", action="store_true",
+                        help="Default times to PM if periods are not provided")
 
     args = parser.parse_args()
 
-    time_diff = calc_diff(args.time1, args.period1, args.time2, args.period2)
+    # user selected --pmdefult
+    if args.pmdefault:
+        args.period1 = 'PM'
+        args.period2 = 'PM'
 
+        time_diff = calc_diff_pm(args)
+        print(f"Time difference: {time_diff}")
+        return
+
+    time_diff = calc_diff_pm(args)
     print(f"Time difference: {time_diff}")
 
 

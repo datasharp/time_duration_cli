@@ -1,45 +1,33 @@
 import unittest
+from argparse import Namespace
+import datetime as dt
 from timediff.__main__ import main, calc_diff
 
 
 class TestCase(unittest.TestCase):
     def test1(self):
-        time1 = '8:15'
-        period1 = 'AM'
-        time2 = '9:00'
-        period2 = 'AM'
-        expected = "0:45:00"
-        self.assertEqual(str(calc_diff(time1, period1, time2, period2)),
-                         expected)
+        args = Namespace(time1='8:15', period1='AM', time2='9:00',
+                         period2='AM')
+        expected = dt.timedelta(hours=0, minutes=45)
+        self.assertEqual(calc_diff(args), expected)
 
     def test2(self):
-        time1 = '8:15'
-        period1 = 'AM'
-        time2 = '9:00'
-        period2 = 'PM'
-        expected = "12:45:00"
-        self.assertEqual(str(calc_diff(time1, period1, time2, period2)),
-                         expected)
+        args = Namespace(time1='8:15', period1='AM', time2='9:00',
+                         period2='PM')
+        expected = dt.timedelta(hours=12, minutes=45)
+        self.assertEqual(calc_diff(args), expected)
 
     def test3(self):
-        time1 = '11:15'
-        period1 = 'AM'
-        time2 = '1:00'
-        period2 = 'AM'
-        expected = "13:45:00"
-        print(str(calc_diff(time1, period1, time2, period2)))
-        self.assertEqual(str(calc_diff(time1, period1, time2, period2)),
-                         expected)
+        args = Namespace(time1='11:15', period1='AM', time2='1:00',
+                         period2='AM')
+        expected = dt.timedelta(hours=13, minutes=45)
+        self.assertEqual(calc_diff(args), expected)
 
     def test4(self):
-        time1 = '10:15'
-        period1 = 'PM'
-        time2 = '2:00'
-        period2 = 'AM'
-        expected = "3:45:00"
-        print(str(calc_diff(time1, period1, time2, period2)))
-        self.assertEqual(str(calc_diff(time1, period1, time2, period2)),
-                         expected)
+        args = Namespace(time1='10:15', period1='PM', time2='2:00',
+                         period2='AM')
+        expected = dt.timedelta(hours=3, minutes=45)
+        self.assertEqual(calc_diff(args), expected)
 
 
 if __name__ == '__main__':
