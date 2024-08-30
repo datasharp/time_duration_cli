@@ -1,0 +1,11 @@
+nums = [0,1,0,3,12]
+l = 0
+z = len(nums) - 1
+for r in range(len(nums)):
+    if nums[r] != 0:
+        nums[l] = nums[r]
+        l += 1
+    else:
+        nums[z] = nums[r]
+        z -= 1
+print(nums)

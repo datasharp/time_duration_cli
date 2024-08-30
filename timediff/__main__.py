@@ -3,10 +3,12 @@ import argparse
 import sys
 
 
-def calc_diff_pm(args):
+def calc_diff(args):
     try:
-        print(f"time1={args.time1}, period1={args.period1}, time2={args.time2}, period2={args.period2}")
+        print(f"time1={args.time1}, period1={args.period1}, time2={args.time2},\
+              period2={args.period2}")
 
+        # PM flag set
         if args.pmdefault:
             args.period1 = 'PM'
             args.period2 = 'PM'
@@ -21,26 +23,7 @@ def calc_diff_pm(args):
               for periods.")
         sys.exit(1)
 
-    if args.time2 < args.time1:
-        args.time2 += dt.timedelta(days=1)
-
-    return args.time2 - args.time1
-
-
-def calc_diff(args):
-    try:
-        print(f"time1={args.time1}, period1={args.period1}, time2={args.time2}, period2={args.period2}")
-
-        args.time1 = dt.datetime.strptime(f"{args.time1} {args.period1}",
-                                          "%I:%M %p")
-        args.time2 = dt.datetime.strptime(f"{args.time2} {args.period2}",
-                                          "%I:%M %p")
-
-    except ValueError:
-        print("ERROR: Invalid time format. Please use HH:MM format and AM/PM \
-              for periods.")
-        sys.exit(1)
-
+    # Times passed midnight
     if args.time2 < args.time1:
         args.time2 += dt.timedelta(days=1)
 
@@ -65,16 +48,7 @@ def main():
 
     args = parser.parse_args()
 
-    # user selected --pmdefult
-    if args.pmdefault:
-        args.period1 = 'PM'
-        args.period2 = 'PM'
-
-        time_diff = calc_diff_pm(args)
-        print(f"Time difference: {time_diff}")
-        return
-
-    time_diff = calc_diff_pm(args)
+    time_diff = calc_diff(args)
     print(f"Time difference: {time_diff}")
 
 
