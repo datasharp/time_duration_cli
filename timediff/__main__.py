@@ -5,13 +5,15 @@ import sys
 
 def calc_diff(args):
     try:
-        print(f"time1={args.time1}, period1={args.period1}, time2={args.time2},\
-              period2={args.period2}")
-
         # PM flag set
         if args.pmdefault:
             args.period1 = 'PM'
             args.period2 = 'PM'
+
+        # AM flag set
+        if args.amdefault:
+            args.period1 = 'AM'
+            args.period2 = 'AM'
 
         args.time1 = dt.datetime.strptime(f"{args.time1} {args.period1}",
                                           "%I:%M %p")
@@ -45,6 +47,10 @@ def main():
     # PM default flag
     parser.add_argument("-pmd", "--pmdefault", action="store_true",
                         help="Default times to PM if periods are not provided")
+
+    # AM default flag
+    parser.add_argument("-amd", "--amdefault", action="store_true",
+                        help="Default times to AM if periods are not provided")
 
     args = parser.parse_args()
 

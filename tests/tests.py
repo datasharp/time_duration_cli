@@ -29,6 +29,12 @@ class TestCase(unittest.TestCase):
         expected = dt.timedelta(hours=3, minutes=45)
         self.assertEqual(calc_diff(args), expected)
 
+    def test5(self):
+        args = Namespace(time1='10:15', period1='PM', time2='11:00',
+                         period2='PM', pmdefault=True)
+        expected = dt.timedelta(hours=0, minutes=45)
+        self.assertEqual(calc_diff(args), expected)
+
 
 if __name__ == '__main__':
     unittest.main()
